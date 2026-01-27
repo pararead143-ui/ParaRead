@@ -2,7 +2,8 @@ import axios from "axios";
 
 // Create an Axios instance with the base URL of your Django backend
 const instance = axios.create({
-  baseURL: "http://localhost:8000/api/", // replace with your backend URL if different
+  baseURL: "https://pararead-backend.onrender.com/api/",
+ // replace with your backend URL if different
   headers: {
     "Content-Type": "application/json",
   },
