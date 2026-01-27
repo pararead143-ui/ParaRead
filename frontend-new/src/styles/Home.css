@@ -1,0 +1,864 @@
+/* ==============================
+   Whole screen layout (ZOOM-SAFE + SIDEBAR STAYS)
+   ✅ locks the layout to viewport
+   ✅ prevents page/body scrolling
+   ✅ ONLY .home-content scrolls
+   ============================== */
+.home-container {
+  display: flex;
+
+  height: 100dvh;
+  min-height: 100dvh;
+
+  background-color: #B3E6F5;
+  font-family: 'Segoe UI', sans-serif;
+
+  overflow: hidden;
+
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.home-container.dark {
+  background-color: #002e3b;
+  color: inherit;
+}
+
+/* ==============================
+   Right content area
+   ✅ ONLY THIS SCROLLS
+   ============================== */
+.home-content {
+  flex: 1;
+
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  padding: clamp(16px, 4vw, 60px) clamp(12px, 3vw, 40px) clamp(12px, 2vw, 20px);
+  padding-bottom: clamp(40px, 5vw, 60px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  min-width: 0;
+}
+
+/* ✅ safety: prevent horizontal overflow in zoom/narrow */
+.home-content * {
+  min-width: 0;
+}
+
+/* ✅ GLOBAL SAFETY FOR INPUTS (fix tight padding on small screens too) */
+.home-content select,
+.home-content textarea,
+.home-content input,
+.home-content button,
+.home-content .text-input {
+  box-sizing: border-box;
+}
+
+/* ==============================
+   Nice scrollbar for .home-content
+   (Chrome/Edge/Safari + Firefox)
+============================== */
+
+/* Firefox */
+.home-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 79, 90, 0.45) rgba(0, 0, 0, 0);
+}
+
+/* Chrome / Edge / Safari */
+.home-content::-webkit-scrollbar {
+  width: 12px;
+}
+
+.home-content::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px 0;
+  border-radius: 999px;
+}
+
+.home-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 79, 90, 0.35);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+.home-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 79, 90, 0.55);
+}
+
+/* Dark mode tweak */
+.home-container.dark .home-content {
+  scrollbar-color: rgba(179, 230, 245, 0.35) rgba(0, 0, 0, 0);
+}
+
+.home-container.dark .home-content::-webkit-scrollbar-thumb {
+  background: rgba(179, 230, 245, 0.28);
+}
+
+.home-container.dark .home-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(179, 230, 245, 0.45);
+}
+
+/* ==============================
+   Title
+   ============================== */
+.home-title {
+  font-size: clamp(24px, 3.6vw, 44px);
+  letter-spacing: clamp(1px, 0.4vw, 4px);
+
+  font-weight: 700;
+  color: #004f5a;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.home-title.dark {
+  color: #b3e6f5;
+}
+
+/* ==============================
+   Subtitle / tips
+   ============================== */
+.home-subtitle {
+  font-size: clamp(12.5px, 1.2vw, 14px);
+
+  margin-bottom: 25px;
+  color: #004f5a;
+  text-align: center;
+
+  max-width: min(92%, 600px);
+  position: relative;
+}
+
+.home-subtitle.dark {
+  color: #b3e6f5;
+}
+
+/* Tooltip */
+.tooltip-icon-inline {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 5px;
+  cursor: pointer;
+  color: #0b616e;
+}
+
+.tooltip-icon-inline.dark {
+  color: #66e0f0;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #004f5a;
+  color: #b3e6f5;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  width: 220px;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
+  white-space: normal;
+  pointer-events: auto;
+}
+
+.tooltip.dark {
+  background-color: #002e3b;
+  color: #e0f3f6;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #004f5a transparent transparent transparent;
+}
+
+.tooltip.dark::after {
+  border-color: #002e3b transparent transparent transparent;
+}
+
+/* ==============================
+   Upload section
+   ============================== */
+.upload-section {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.upload-group {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  max-width: 100%;
+}
+
+.upload-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #e7f7fa;
+  border: 2px solid #003b44;
+  color: #003b44;
+  padding: 10px 18px;
+  border-radius: 10px 0 0 10px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.upload-main:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
+}
+
+.upload-main .upload-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.05);
+}
+
+.upload-main .upload-text {
+  display: inline-block;
+  line-height: 1;
+}
+
+.upload-dropdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #003b44;
+  border-left: none;
+  background: #e7f7fa;
+  padding: 10px 14px;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-dropdown:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
+}
+
+.upload-main.dark,
+.upload-dropdown.dark {
+  background-color: inherit;
+  border-color: #555;
+  color: #e0f3f6;
+}
+
+.upload-main.dark .upload-icon {
+  background: rgba(255,255,255,0.05);
+}
+
+/* ==============================
+   Work Box (ZOOM-SAFE HEIGHT)
+   ============================== */
+.work-box {
+  width: min(85%, 850px);
+  height: auto;
+  min-height: clamp(360px, 55vh, 450px);
+
+  background-color: #e7f7fa;
+  border: 3px solid #003b44;
+  border-radius: 20px;
+
+  padding: clamp(12px, 2vw, 20px);
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+
+  min-width: 0;
+}
+
+.work-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.work-box.dark {
+  background-color: inherit;
+  border-color: #66c4d4;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+/* Desktop default */
+.preview-actions {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.preview-actions .preview-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #0b616e;
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.preview-actions .preview-btn:hover {
+  background-color: #0d7890;
+  transform: translateY(-1px);
+}
+
+.preview-actions .preview-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ✅ Prevent overlay on desktop too */
+.work-box .text-input {
+  padding-top: 58px;
+}
+
+/* ==============================
+   Text input
+   ============================== */
+.text-input {
+  width: 100%;
+  flex: 1;
+  border: none;
+  background: transparent;
+
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: #003b44;
+  outline: none;
+  resize: none;
+
+  /* desktop padding */
+  padding: 12px;
+
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+.text-input::placeholder {
+  color: rgba(0, 59, 68, 0.65);
+}
+
+.text-input.dark {
+  color: #e0f3f6;
+}
+
+.text-input.dark::placeholder {
+  color: rgba(224, 243, 246, 0.65);
+}
+
+/* Word/Character Counter */
+.text-counter {
+  text-align: right;
+  font-size: 14px;
+  margin-top: 8px;
+  color: #003b44;
+}
+
+.text-counter.dark {
+  color: #e0f3f6;
+}
+
+/* ==============================
+   ✅ EMPTY STATE OVERLAY (Option B) — UPDATED
+   Matches your screenshot style (glass + soft chips)
+   ============================== */
+.empty-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+
+  pointer-events: none;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  padding: 28px;
+}
+
+.empty-overlay-inner {
+  max-width: 560px;
+
+  background: rgba(231, 247, 250, 0.75);
+  border: 1px solid rgba(0, 59, 68, 0.14);
+  border-radius: 18px;
+
+  padding: 16px 18px;
+
+  color: #003b44;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.home-container.dark .empty-overlay-inner {
+  background: rgba(0, 46, 59, 0.62);
+  border: 1px solid rgba(179, 230, 245, 0.14);
+  color: #e0f3f6;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+
+.empty-title {
+  font-weight: 800;
+  font-size: 16px;
+  margin-bottom: 8px;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.empty-title span:first-child {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.empty-sub {
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0.92;
+  margin-bottom: 12px;
+}
+
+.empty-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.empty-chips .chip {
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 999px;
+
+  background: rgba(11, 97, 110, 0.08);
+  border: 1px solid rgba(11, 97, 110, 0.18);
+  color: #0b616e;
+
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  white-space: nowrap;
+}
+
+.home-container.dark .empty-chips .chip {
+  background: rgba(179, 230, 245, 0.12);
+  border: 1px solid rgba(179, 230, 245, 0.18);
+  color: #b3e6f5;
+}
+
+@media (max-width: 520px) {
+  .empty-overlay {
+    padding: 14px;
+  }
+
+  .empty-overlay-inner {
+    max-width: 100%;
+    padding: 12px 12px;
+  }
+
+  .empty-title {
+    font-size: 15px;
+  }
+
+  .empty-sub {
+    font-size: 13px;
+  }
+}
+
+/* ==============================
+   Action buttons under work box
+   ============================== */
+.action-buttons-right {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: flex-end;
+  gap: 20px;
+  width: min(85%, 850px);
+  margin: 10px 0 25px 0;
+}
+
+.action-buttons-right button {
+  background-color: #0b616e;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.action-buttons-right button:hover {
+  background-color: #0d7890;
+  transform: translateY(-2px);
+}
+
+/* ==============================
+   Info box
+   ============================== */
+.info-box {
+  width: min(85%, 850px);
+  padding: 14px 20px;
+  border-radius: 16px;
+  border: 2px solid #003b44;
+  background-color: #e7f7fa;
+  text-align: center;
+  font-size: 14px;
+  color: #003b44;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  margin-top: 10px;
+}
+
+.info-box.dark {
+  background-color: inherit;
+  border-color: #66c4d4;
+  color: #e0f3f6;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* ==============================
+   Floating shapes
+   ============================== */
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  pointer-events: none;
+  animation: float 10s ease-in-out infinite;
+  z-index: 0;
+}
+
+.floating-shape.shape1 { width: 120px; height: 120px; background: #0b616e; top: 10%; left: 5%; animation-duration: 12s; }
+.floating-shape.shape2 { width: 80px; height: 80px; background: #66c4d4; top: 60%; left: 80%; animation-duration: 15s; }
+.floating-shape.shape3 { width: 100px; height: 100px; background: #004f5a; top: 40%; left: 50%; animation-duration: 18s; }
+
+@keyframes float {
+  0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  25% { transform: translateY(-15px) translateX(10px) rotate(15deg); }
+  50% { transform: translateY(0px) translateX(-10px) rotate(-15deg); }
+  75% { transform: translateY(15px) translateX(10px) rotate(10deg); }
+  100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+}
+
+.home-container.dark .floating-shape.shape1 { background: #0d7890; opacity: 0.1; }
+.home-container.dark .floating-shape.shape2 { background: #33c4d4; opacity: 0.1; }
+.home-container.dark .floating-shape.shape3 { background: #66e0f0; opacity: 0.1; }
+
+/* ==============================
+   Toast
+   ============================== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #0b616e;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  opacity: 0.95;
+  z-index: 50;
+  pointer-events: none;
+  animation: toast-fade 0.5s ease-in-out;
+  transition: all 0.3s ease;
+}
+
+.toast.dark {
+  background-color: #33c4d4;
+  color: #002e3b;
+}
+
+@keyframes toast-fade {
+  0% { transform: translateY(20px); opacity: 0; }
+  10% { transform: translateY(0); opacity: 1; }
+  90% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(20px); opacity: 0; }
+}
+
+/* ==============================
+   Responsive (UPDATED for small screens)
+   ✅ fixes tight padding inside dropdown/textarea
+   ============================== */
+@media (max-width: 1024px) {
+  .home-content {
+    padding: clamp(18px, 4vw, 44px) clamp(14px, 3vw, 24px) clamp(12px, 2vw, 18px);
+    padding-bottom: clamp(40px, 5vw, 60px);
+  }
+
+  .home-title {
+    font-size: clamp(22px, 4vw, 36px);
+    letter-spacing: clamp(1px, 0.35vw, 3px);
+  }
+
+  .work-box,
+  .action-buttons-right,
+  .info-box {
+    width: min(92%, 820px);
+  }
+
+  .work-box {
+    height: auto;
+    min-height: clamp(340px, 55vh, 420px);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    padding: 18px 14px 14px 14px;
+    padding-bottom: 70px;
+  }
+
+  .home-title {
+    font-size: 26px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .home-subtitle {
+    max-width: 92%;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+
+  .upload-section {
+    margin-bottom: 14px;
+  }
+
+  .upload-group {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .upload-main {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 14px;
+  }
+
+  .upload-dropdown {
+    padding: 10px 12px;
+  }
+
+  .work-box,
+  .action-buttons-right,
+  .info-box {
+    width: 94%;
+    max-width: 700px;
+  }
+
+  .work-box {
+    height: auto;
+    min-height: 420px;
+    padding: 14px;
+    border-radius: 18px;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+
+    /* ✅ less “heavy” border on small screens */
+    border-width: 2px;
+  }
+
+  /* ✅ MOBILE FIX: more comfortable padding inside textarea */
+  .text-input {
+    font-size: 15px;
+    line-height: 1.6;
+
+    /* was 10px (too tight) */
+    padding: 14px;
+
+    min-height: 260px;
+  }
+
+  /* ✅ If you use <select> or inputs inside home, make them comfy too */
+  .home-content select,
+  .home-content input {
+    min-height: 46px;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .text-counter.near-limit {
+    color: #ff6b6b;
+    font-weight: 600;
+  }
+
+  .action-buttons-right {
+    width: 94%;
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: unset;
+    margin: 12px 0 18px 0;
+  }
+
+  .action-buttons-right button:nth-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  .action-buttons-right button {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.16);
+  }
+
+  .info-box {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+
+  .toast {
+    right: 16px;
+    bottom: 16px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .floating-shape.shape1 { width: 80px; height: 80px; }
+  .floating-shape.shape2 { width: 55px; height: 55px; }
+  .floating-shape.shape3 { width: 70px; height: 70px; }
+}
+
+@media (max-width: 520px) {
+  .preview-actions {
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .preview-actions .preview-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 999px;
+  }
+
+  .preview-actions .preview-btn .btn-text {
+    display: none;
+  }
+
+  .preview-actions .preview-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .work-box .text-input {
+    padding-top: 14px;
+    padding-bottom: 78px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-content {
+    padding: 14px 12px 12px 12px;
+    padding-bottom: 70px;
+  }
+
+  .home-title {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .home-subtitle {
+    font-size: 12.5px;
+    margin-bottom: 14px;
+  }
+
+  .work-box {
+    min-height: 380px;
+    padding: 12px;
+    border-radius: 16px;
+    border-width: 2px;
+  }
+
+  /* ✅ MOBILE FIX: keep padding, don’t shrink it */
+  .text-input {
+    min-height: 240px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    padding: 14px;
+  }
+
+  .home-content select,
+  .home-content input {
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 13.5px;
+  }
+
+  .text-counter {
+    font-size: 12px;
+  }
+
+  .info-box {
+    font-size: 12.5px;
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .preview-actions .preview-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .preview-actions .preview-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .work-box .text-input {
+    padding-bottom: 72px;
+  }
+}

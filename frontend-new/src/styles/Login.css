@@ -1,0 +1,459 @@
+/* ✅ STOP MOBILE “ZOOM/SHRINK” TEXT AUTO-RESIZE */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* ✅ FIX: remove tiny right-side lines / overflow gaps */
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* ✅ IMPORTANT: prevents width issues with padding */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* =========================
+  PAGE LAYOUT
+============================ */
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 100vw;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #d0e4ff, #a2c0ff);
+  overflow: hidden;
+}
+
+/* =========================
+  LEFT SIDE HERO (CENTERED)
+============================ */
+.left-side {
+  flex: 1;
+  background: linear-gradient(135deg, #083543, #1a4ccc);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  padding: 80px 60px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* =========================
+  TITLE / TAGLINE / SLOGAN
+============================ */
+.app-title {
+  font-size: 72px;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  text-align: center;
+
+  background: linear-gradient(90deg, #ffffff, #a0c4ff, #ffffff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s ease;
+  animation: gradientShift 6s ease infinite;
+
+  white-space: nowrap;
+}
+
+.app-title:hover {
+  transform: translateY(-3px);
+  text-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+}
+
+.app-tagline {
+  font-size: 24px;
+  margin: 20px 0;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-align: center;
+
+  background: linear-gradient(90deg, #ffffff, #a0c4ff, #ffffff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s ease;
+  animation: gradientShift 6s ease infinite;
+}
+
+.app-tagline:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.app-slogan {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 420px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  margin-top: 20px;
+  text-align: center;
+
+  background: linear-gradient(90deg, #ffffff, #a0c4ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.5s ease;
+}
+
+/* =========================
+  LOGO
+============================ */
+.logo-wrapper {
+  margin: 40px 0;
+}
+
+.login-logo {
+  width: 180px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  opacity: 0.95;
+  margin: 20px 0;
+
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* =========================
+  RIGHT SIDE — GLASS LOGIN CARD
+============================ */
+.login-card {
+  flex: 1;
+  max-width: 400px;
+  margin: auto 60px;
+  padding: 50px 40px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #003366;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* =========================
+  LOGIN HEADER
+============================ */
+.login-header {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* =========================
+  FORM INPUTS
+============================ */
+.login-input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  color: #003366;
+  font-size: 15px;
+  transition: all 0.25s ease;
+}
+
+/* =========================
+   ✅ CUSTOM INLINE VALIDATION (REPLACES BROWSER TOOLTIP)
+============================ */
+
+/* wrapper for each input + error */
+.form-field {
+  width: 100%;
+}
+
+/* error text under input */
+.error-text {
+  margin-top: 6px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #b00020;
+  text-align: left;
+}
+
+/* error state for inputs */
+.login-input.input-error {
+  border: 2px solid #ff4d4f !important;
+  box-shadow: 0 0 0 4px rgba(255, 77, 79, 0.18);
+}
+
+/* keep focus glow consistent */
+.login-input.input-error:focus {
+  outline: none;
+  border-color: #ff4d4f !important;
+  box-shadow: 0 0 0 4px rgba(255, 77, 79, 0.28);
+}
+
+/* optional: entire card glow when errors exist */
+.login-card.form-error {
+  border: 2px solid rgba(255, 77, 79, 0.9);
+  box-shadow: 0 0 26px rgba(255, 77, 79, 0.25);
+}
+
+
+.login-input::placeholder {
+  color: rgba(0, 51, 102, 0.6);
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #3b7bff;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 12px rgba(59, 123, 255, 0.3);
+}
+
+/* =========================
+  LOGIN BUTTON
+============================ */
+.login-btn {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 5px;
+  background: #3b7bff;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* =========================
+  LINKS
+============================ */
+.login-links {
+  margin-top: 14px;
+  font-size: 14px;
+  text-align: center;
+  color: #003366;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.signup-link {
+  color: #3b7bff;
+  font-weight: 600;
+}
+
+/* =========================
+  TOAST MESSAGE (GLOBAL)
+============================ */
+.toast-message {
+  margin-top: 15px;
+  padding: 12px 18px;
+  background-color: rgba(255, 80, 80, 0.9);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-align: center;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  0% { transform: translateY(-10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* =========================
+  RESPONSIVE: TABLET (still side-by-side)
+============================ */
+@media (max-width: 900px) {
+  .login-page {
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .left-side {
+    flex: 0 0 46%;
+    width: 46%;
+    padding: 48px 18px;
+  }
+
+  .login-card {
+    flex: 1;
+    max-width: none;
+    width: auto;
+    margin: 0;
+    height: 100vh;
+    border-radius: 0;
+    padding: 34px 20px;
+    justify-content: center;
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-title {
+    font-size: 44px;
+    letter-spacing: 3px;
+  }
+
+  .app-tagline {
+    font-size: 16px;
+  }
+
+  .login-logo {
+    width: 120px;
+  }
+
+  .app-slogan {
+    font-size: 14px;
+    max-width: 320px;
+  }
+}
+
+/* =========================
+  ✅ MOBILE: HERO SMALLER + CARD CENTERED
+============================ */
+@media (max-width: 600px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .login-page {
+    flex-direction: column;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+
+    /* ✅ makes hero+card distribute nicely */
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  /* ✅ HERO (TOP) — SMALLER NOW */
+  .left-side {
+    width: 100%;
+    flex: 0 0 auto;
+    padding: 14px 14px;
+    min-height: 28vh;      /* ✅ SHRUNK (was 42vh) */
+    justify-content: center;
+  }
+
+  .app-title {
+    font-size: clamp(30px, 9vw, 40px);
+    white-space: normal;
+    line-height: 1.1;
+    letter-spacing: 3px;
+  }
+
+  .app-tagline {
+    font-size: 13px;
+    margin: 6px 0 0;
+  }
+
+  .logo-wrapper {
+    margin: 10px 0;
+  }
+
+  .login-logo {
+    width: 110px;
+    margin: 10px 0;
+    animation: none; /* optional: no floating on mobile */
+  }
+
+  .app-slogan {
+    display: none;
+  }
+
+  /* ✅ FORM — CENTERED */
+  .login-card {
+    flex: 0 0 auto;          /* ✅ stop filling the whole bottom */
+    width: 92%;
+    max-width: 420px;
+    margin: auto;            /* ✅ centers vertically + horizontally */
+    padding: 28px 18px;
+    border-radius: 22px;
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 70vh;        /* ✅ prevents clipping on tiny screens */
+  }
+
+  .login-header {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  /* ✅ 16px prevents iOS zoom */
+  .login-input {
+    font-size: 16px;
+    padding: 14px 16px;
+  }
+
+  .login-btn {
+    font-size: 16px;
+    padding: 14px 16px;
+  }
+
+  .login-links {
+    font-size: 14px;
+  }
+}
+
+/* ✅ Extra small phones */
+@media (max-width: 360px) {
+  .left-side {
+    min-height: 24vh;
+  }
+
+  .login-card {
+    max-height: 72vh;
+    width: 94%;
+  }
+}

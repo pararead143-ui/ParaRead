@@ -1,0 +1,397 @@
+.summary-page {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #B3E6F5;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.summary-page.dark {
+  background: linear-gradient(135deg, #001f2d, #00314a);
+  color: #e0f3f6;
+}
+
+.summary-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 30px;
+  gap: 15px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 60px;
+}
+
+.text-counter.near-limit {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+/* ==============================
+   Nice scrollbar for Summary scroll area
+   (Chrome/Edge/Safari + Firefox)
+============================== */
+
+/* Firefox */
+.summary-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 79, 90, 0.45) rgba(0, 0, 0, 0);
+}
+
+/* Chrome / Edge / Safari */
+.summary-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.summary-container::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px 0;              /* breathing space */
+  border-radius: 999px;
+}
+
+.summary-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 79, 90, 0.35);
+  border-radius: 999px;
+  border: 3px solid transparent; /* makes thumb look thinner */
+  background-clip: padding-box;
+}
+
+.summary-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 79, 90, 0.55);
+}
+
+/* Dark mode tweak */
+.summary-page.dark .summary-container {
+  scrollbar-color: rgba(179, 230, 245, 0.35) rgba(0, 0, 0, 0);
+}
+
+.summary-page.dark .summary-container::-webkit-scrollbar-thumb {
+  background: rgba(179, 230, 245, 0.28);
+}
+
+.summary-page.dark .summary-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(179, 230, 245, 0.45);
+}
+
+
+.summary-header {
+  text-align: center;
+}
+
+.summary-title {
+  font-size: 44px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  color: #005660;
+  margin-bottom: 8px;
+}
+
+.summary-title.dark {
+  color: #a6e1f2;
+}
+
+.summary-subtitle {
+  font-size: 14px;
+  color: #004f5a;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.summary-subtitle.dark {
+  color: #cdeaf3;
+}
+
+.summary-body {
+  display: flex;
+  flex: 1;
+  gap: 15px;
+}
+
+/* ✅ UPDATED: make this a positioning context for the floating icons */
+.summary-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* ✅ ADDED */
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 22px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  border: 1.5px solid rgba(0,86,96,0.3);
+  transition: all 0.3s ease;
+}
+
+.summary-page.dark .summary-section {
+  background: rgba(0,30,45,0.45);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1.5px solid rgba(102,196,212,0.6);
+}
+
+.summary-input,
+.summary-output {
+  flex: 1;
+  resize: none;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(0,86,96,0.25);
+  margin-top: 8px;
+  font-size: 15px;
+  color: #050c0d;
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.2);
+  transition: all 0.25s ease;
+}
+
+.summary-page.dark .summary-input,
+.summary-page.dark .summary-output {
+  background: rgba(0,60,75,0.3);
+  color: #f2f7f9;
+  border: 1.5px solid #0090b0;
+  box-shadow: inset 0 4px 15px rgba(0,0,0,0.25);
+}
+
+/* =========================
+   Copy / Download
+   ========================= */
+
+.preview-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.preview-actions button {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: none;
+  background: #0b616e;
+  color: #fff;
+  transition: 0.2s ease;
+}
+
+.preview-actions button:hover {
+  background: #0090b0;
+  transform: translateY(-1px);
+}
+
+.preview-actions button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* =========================
+   Info + Action Buttons
+   ========================= */
+
+.info-box {
+  text-align: center;
+  font-size: 13px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid #005660;
+  color: #003b44;
+  margin: 20px auto 0;
+  max-width: 600px;
+}
+
+.info-box.dark {
+  background: rgba(0,30,45,0.4);
+  color: #fcfcfc;
+  border-color: #00c0f0;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.action-buttons button {
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  background: #00627a;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: all 0.25s ease;
+}
+
+.action-buttons button:hover {
+  background: #0090b0;
+  transform: translateY(-2px);
+}
+
+.action-buttons .clear-btn {
+  background: #b71c1c;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1024px) {
+  .summary-body {
+    flex-direction: column;
+  }
+
+  .summary-title {
+    font-size: 34px;
+  }
+}
+
+/* =========================
+   ✅ MOBILE: maximize space (phones)
+   keep bottom-right icons
+   ========================= */
+@media (max-width: 600px) {
+  /* tighter overall padding so content gets taller */
+  .summary-container {
+    padding: 16px 12px;
+    gap: 10px;
+    padding-bottom: 18px;
+  }
+
+  /* compact header */
+  .summary-header {
+    margin-bottom: 0;
+  }
+
+  .summary-title {
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .summary-subtitle {
+    font-size: 12px;
+    margin: 0 auto 8px;
+    max-width: 95%;
+    line-height: 1.35;
+  }
+
+  /* less gap between cards */
+  .summary-body {
+    gap: 10px;
+  }
+
+  /* tighter card padding */
+  .summary-section {
+    padding: 12px;
+    border-radius: 18px;
+    position: relative; /* keep as parent for absolute buttons */
+  }
+
+  /* textareas: smaller min-height + tighter spacing */
+  .summary-input,
+  .summary-output {
+    margin-top: 6px;
+    padding: 10px;
+    border-radius: 14px;
+    font-size: 14px;
+    min-height: 180px;
+  }
+
+  /* ✅ ICON-ONLY + BOTTOM-RIGHT (no overlap) */
+  .preview-actions {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 6;
+    margin: 0;
+  }
+
+  .preview-actions button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 12px;
+    justify-content: center;
+    gap: 0;
+    font-size: 0; /* hide text */
+    line-height: 0;
+  }
+
+  .preview-actions button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* add space so buttons don't cover textarea/counter */
+  .summary-output {
+    padding-bottom: 62px;
+  }
+
+  /* optional: tighter info/action area */
+  .info-box {
+    margin: 8px auto 0;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 14px;
+  }
+
+  .action-buttons {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .action-buttons button {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+
+/* extra small */
+@media (max-width: 360px) {
+  .summary-container {
+    padding: 12px 10px;
+  }
+
+  .summary-title {
+    font-size: 20px;
+  }
+
+  .summary-subtitle {
+    font-size: 11.5px;
+    margin-bottom: 6px;
+  }
+
+  .summary-section {
+    padding: 10px;
+  }
+
+  .preview-actions button {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .preview-actions button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .summary-input,
+  .summary-output {
+    min-height: 165px;
+  }
+
+  .summary-output {
+    padding-bottom: 58px;
+  }
+}

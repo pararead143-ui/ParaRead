@@ -1,0 +1,369 @@
+/* ================================
+   SIDEBAR CONTAINER (ZOOM-SAFE + STAYS STILL)
+   ✅ Sidebar does NOT scroll
+   ✅ "More" dropdown is FIXED (so sidebar can stay clipped)
+================================ */
+.sidebar {
+  background: linear-gradient(180deg, #006477, #0088a1);
+
+  width: clamp(90px, 18vw, 270px);
+
+  position: sticky;
+  top: 0;
+
+  height: 100dvh;
+  min-height: 100dvh;
+
+  padding: clamp(18px, 3vw, 40px) clamp(10px, 2vw, 30px);
+
+  color: #a6d8e7;
+  font-family: "Arial Black", Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.25);
+  transition: width 0.4s ease, background 0.4s ease, padding 0.4s ease;
+
+  /* ✅ NEVER allow scrollbars in sidebar */
+  overflow: clip;   /* modern: hides overflow w/out scrollbars */
+  overflow: hidden; /* fallback */
+
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+  flex: 0 0 auto;
+  z-index: 30;
+
+  min-width: 0;
+  position: sticky;
+}
+
+.sidebar.collapsed {
+  width: 90px;
+  padding: 24px 10px;
+}
+
+.sidebar.dark {
+  background: linear-gradient(180deg, #0d1b26, #1a2b3c);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Collapse Button */
+.collapse-btn {
+  position: absolute;
+  top: 20px;
+  right: -20px;
+
+  background-color: #00bcd4;
+  color: white;
+
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+
+  text-align: center;
+  line-height: 32px;
+
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 40;
+}
+
+.collapse-btn:hover {
+  transform: scale(1.2);
+  background-color: #0099cc;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Sidebar Avatar */
+.sidebar-avatar {
+  display: flex;
+  align-items: center;
+  margin-bottom: clamp(18px, 3vw, 50px);
+  gap: 15px;
+
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.avatar-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  background: linear-gradient(135deg, #00bcd4, #0099cc);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.avatar-circle img.avatar-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-name {
+  font-weight: 900;
+  font-size: clamp(14px, 1.2vw, 20px);
+
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+  transition: opacity 0.3s ease;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 14ch;
+}
+
+.sidebar.collapsed .avatar-name {
+  display: none;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+
+  /* ✅ keep sidebar clean; dropdown is fixed so no need for visible overflow */
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  font-size: 16px;
+  font-weight: 700;
+  color: #a6d8e7;
+
+  margin-bottom: 22px;
+  padding: 12px 20px;
+
+  border-radius: 30px;
+  cursor: pointer;
+  letter-spacing: 0.9px;
+
+  position: relative;
+  transition: all 0.3s ease;
+
+  backdrop-filter: blur(6px);
+  min-width: 0;
+}
+
+.sidebar-menu li:hover {
+  background-color: #00bcd4;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(0, 188, 212, 0.7);
+  transform: translateX(4px) scale(1.03);
+}
+
+.sidebar-menu li.active {
+  background-color: #00bcd4;
+  color: #fff;
+  box-shadow: 0 0 28px rgba(0, 188, 212, 0.85);
+  transform: scale(1.03);
+}
+
+/* Icon Circle */
+.icon-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+
+  flex-shrink: 0;
+}
+
+.sidebar-menu li:hover .icon-circle,
+.sidebar-menu li.active .icon-circle {
+  background-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+/* Tooltip (only when collapsed) */
+.sidebar.collapsed .sidebar-menu li .tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  background-color: #00bcd4;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 14px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+.sidebar.collapsed .sidebar-menu li:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ================================
+   ✅ FIXED "MORE" DROPDOWN (matches your Sidebar.js)
+   - opens via .open class
+   - positioned via inline style (top/left)
+================================ */
+.more-dropdown {
+  position: fixed;
+  z-index: 9999;
+
+  width: 240px;
+  max-width: calc(100vw - 24px);
+
+  border-radius: 14px;
+  padding: 10px;
+
+  background: rgba(0, 180, 210, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.more-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sidebar.dark .more-dropdown {
+  background: rgba(16, 26, 36, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Dropdown links (your JS renders .more-link) */
+.more-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  cursor: pointer;
+  user-select: none;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.more-link + .more-link {
+  margin-top: 8px;
+}
+
+.more-link:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.more-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.more-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.more-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  margin: 10px 4px;
+}
+
+/* Small screens */
+@media (max-width: 520px) {
+  .more-dropdown {
+    width: 210px;
+  }
+}
+
+/* ================================
+   RESPONSIVE SIDEBAR
+================================ */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 90px;
+    padding: 24px 10px;
+
+    height: 100dvh;
+    min-height: 100dvh;
+
+    overflow: clip;
+    overflow: hidden;
+  }
+
+  .sidebar-avatar {
+    justify-content: center;
+    margin-bottom: 28px;
+    gap: 0;
+  }
+
+  .avatar-name {
+    display: none;
+  }
+
+  .sidebar-menu li {
+    justify-content: center;
+    padding: 12px 10px;
+    gap: 0;
+  }
+
+  .sidebar-menu li span:not(.tooltip) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 78px;
+    padding: 18px 8px;
+  }
+
+  .icon-circle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .sidebar-menu li {
+    padding: 10px 8px;
+    border-radius: 22px;
+  }
+}

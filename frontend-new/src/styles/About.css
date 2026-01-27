@@ -1,0 +1,248 @@
+/* ==============================
+   Container
+============================== */
+.about-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #B3E6F5, #D9F0FA);
+  color: #003b44;
+  transition: all 0.3s ease;
+
+  /* keep sidebar fixed, content scrolls inside card */
+  overflow: hidden;
+}
+
+.about-container.dark {
+  background: linear-gradient(135deg, #002e3b, #1c1c1c);
+  color: #e0f3f6;
+}
+
+/* ==============================
+   Content
+============================== */
+.about-content {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  /* prevent tiny screens from clipping the card */
+  min-width: 0;
+
+  /* ✅ prevent horizontal clipping/scroll issues */
+  overflow: hidden;
+}
+
+/* Make only this section scrollable */
+.about-section {
+  max-width: 900px;
+  width: 100%;
+  background-color: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+
+  /* ✅ use dvh for mobile address bar behavior */
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+
+  /* nicer scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+
+  /* avoid text touching edges on narrow screens */
+  box-sizing: border-box;
+}
+
+.about-container.dark .about-section {
+  background-color: rgba(30,36,38,0.95);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+}
+
+/* ==============================
+   Titles & Text
+============================== */
+.about-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.about-title .highlight {
+  color: #0091af;
+}
+
+.about-container.dark .about-title .highlight {
+  color: #00d7ff;
+}
+
+.about-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-left: 4px solid #0091af;
+  padding-left: 12px;
+}
+
+.about-container.dark .section-heading {
+  border-left-color: #00d7ff;
+}
+
+/* ==============================
+   Lists
+============================== */
+.features-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.features-list li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 12px;
+  line-height: 1.55;
+}
+
+.features-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #0091af;
+  font-weight: bold;
+}
+
+.about-container.dark .features-list li::before {
+  color: #00d7ff;
+}
+
+/* ==============================
+   Links
+============================== */
+a {
+  color: #006771;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.about-container.dark a {
+  color: #00d7ff;
+}
+
+/* ==============================
+   Responsive (Mobile / Narrow)
+============================== */
+@media (max-width: 768px) {
+  .about-content {
+    padding: 18px 14px;
+  }
+
+  .about-section {
+    /* ✅ full-width card, less padding */
+    padding: 18px 16px;
+    border-radius: 18px;
+
+    /* ✅ more usable height on mobile */
+    max-height: calc(100dvh - 36px);
+
+    /* optional: make it feel less "floating" on tiny screens */
+    box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  }
+
+  .about-title {
+    /* ✅ scales better on narrow screens */
+    font-size: clamp(1.6rem, 5.5vw, 2.1rem);
+    margin-bottom: 12px;
+  }
+
+  .about-description {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .section-heading {
+    font-size: 1.2rem;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+  }
+
+  .features-list li {
+    padding-left: 22px;
+    margin-bottom: 10px;
+  }
+}
+
+/* Extra small (Fold / very narrow phones) */
+@media (max-width: 420px) {
+  .about-content {
+    padding: 14px 10px; /* ✅ FIXED */
+  }
+
+  .about-section {
+    padding: 16px 14px;
+    border-radius: 16px;
+    max-height: calc(100dvh - 28px);
+  }
+
+  /* ==============================
+   Clean scrollbar – About section
+============================== */
+
+/* Firefox */
+.about-section {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 79, 90, 0.45) transparent;
+}
+
+/* Chrome / Edge / Safari */
+.about-section::-webkit-scrollbar {
+  width: 12px;
+}
+
+.about-section::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px 0;              /* top/bottom spacing */
+  border-radius: 999px;
+}
+
+.about-section::-webkit-scrollbar-thumb {
+  background: rgba(0, 79, 90, 0.35);
+  border-radius: 999px;
+  border: 3px solid transparent; /* visually thinner */
+  background-clip: padding-box;
+}
+
+.about-section::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 79, 90, 0.55);
+}
+
+/* Dark mode */
+.about-container.dark .about-section {
+  scrollbar-color: rgba(179, 230, 245, 0.35) transparent;
+}
+
+.about-container.dark .about-section::-webkit-scrollbar-thumb {
+  background: rgba(179, 230, 245, 0.28);
+}
+
+.about-container.dark .about-section::-webkit-scrollbar-thumb:hover {
+  background: rgba(179, 230, 245, 0.45);
+}
+
+}

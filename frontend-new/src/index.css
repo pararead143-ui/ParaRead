@@ -1,0 +1,70 @@
+/* =====================================
+   GLOBAL RESET & VIEWPORT FIX (CRITICAL)
+===================================== */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* ✅ PREVENT MOBILE TEXT AUTO-ZOOM */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  overflow-x: hidden; /* prevent sideways shifting */
+}
+
+/* =========================
+   CODE FONT
+============================ */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* =========================
+   ParaRead Responsive Styles
+============================ */
+
+/* Reading layout */
+.reading-container {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Reading text */
+.reading-text {
+  font-size: clamp(15px, 2.5vw, 18px);
+  line-height: 1.6;
+}
+
+/* =========================
+   MOBILE & TABLET FIXES
+============================ */
+@media (max-width: 768px) {
+  .reading-container {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  /* index.css */
+html, body {
+  overflow-x: hidden;
+}
+
+}

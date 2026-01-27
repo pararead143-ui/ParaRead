@@ -1,0 +1,290 @@
+  /* ===== GLOBAL PAGE BACKGROUND ===== */
+  .register-page {
+    width: 100vw;
+    height: 100dvh; /* ✅ better than 100vh on mobile */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #0b6c78, #035461 70%, #024450);
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+    color: white;
+  }
+
+  /* ===== LEFT SIDE CONTENT ===== */
+  .left-side-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 4rem;
+    text-align: center;
+  }
+
+  /* Animated title */
+  .title-register {
+    font-size: clamp(60px, 10vw, 110px);
+    font-weight: 900;
+    letter-spacing: 14px;
+    text-transform: uppercase;
+
+    background: linear-gradient(90deg, #00fff0, #00bcd4, #00fff0);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow: 0 5px 25px rgba(0, 0, 0, 0.45);
+    animation: gradientShift 6s ease infinite;
+    margin: 0;
+    transition: all 0.4s ease;
+  }
+
+  .title-register:hover {
+    transform: translateY(-3px);
+    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+  }
+
+  /* Animated subtitle */
+  .subtitle-register {
+    font-size: 3rem;
+    font-weight: 600;
+    max-width: 700px;
+    margin: 1rem 0;
+
+    background: linear-gradient(90deg, #ffffff, #a0c4ff, #ffffff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    animation: gradientShift 6s ease infinite;
+    transition: all 0.4s ease;
+  }
+
+  .subtitle-register:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Floating logo */
+  .logo-glow-register {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #c4f7ff, #6ed3db);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 35px rgba(143, 243, 255, 0.6);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .logo-glow-register img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+
+  .logo-glow-register img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.25));
+  }
+
+  /* Bottom slogan */
+  .slogan-register {
+    font-size: 2rem;
+    letter-spacing: 0.25rem;
+    text-align: center;
+    opacity: 0.9;
+    margin-top: 1rem;
+
+    background: linear-gradient(90deg, #ffffff, #a0c4ff, #ffffff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  /* Floating animation keyframes */
+  @keyframes float {
+    0%,
+    100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ===== RIGHT REGISTER CARD ===== */
+  .register-card {
+    width: 420px;
+    min-height: 600px;
+    background: #a5dfe6;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    clip-path: polygon(
+      10% 0,
+      90% 0,
+      100% 10%,
+      100% 90%,
+      90% 100%,
+      10% 100%,
+      0 90%,
+      0 10%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .register-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  }
+
+  .register-card h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.15rem;
+  }
+
+  .register-input {
+    width: 100%;
+    padding: 0.9rem;
+    border-radius: 20px;
+    border: none;
+    margin-top: 1rem;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.25s ease;
+  }
+
+  /* Custom inline validation UI */
+.form-field {
+  width: 100%;
+}
+
+.error-text {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #b00020;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.login-input.input-error {
+  border: 2px solid #ff4d4f !important;
+  box-shadow: 0 0 0 4px rgba(255, 77, 79, 0.18);
+}
+
+.login-input.input-error:focus {
+  box-shadow: 0 0 0 4px rgba(255, 77, 79, 0.25);
+}
+
+  /* =========================
+    ✅ RESPONSIVE (1024px and below)
+    (YOUR SCREENSHOT IS HERE)
+  ========================= */
+  @media (max-width: 1024px) {
+    .register-page {
+      flex-direction: column;
+      justify-content: flex-start; /* ✅ start from top */
+      align-items: center;
+      padding: 16px 14px;
+      overflow-y: auto;            /* ✅ allow scroll */
+      overflow-x: hidden;
+    }
+
+    .left-side-register {
+      padding-left: 0;
+      gap: 8px;
+      margin: 0;
+    }
+
+    /* ✅ shrink hero a lot */
+    .title-register {
+      font-size: clamp(30px, 7vw, 56px);
+      letter-spacing: 6px;
+    }
+
+    .subtitle-register {
+      font-size: clamp(14px, 3.5vw, 20px);
+      margin: 6px 0;
+    }
+
+    .logo-glow-register {
+      width: 160px;  /* ✅ MAIN FIX */
+      height: 160px;
+      animation: none; /* optional */
+    }
+
+    .slogan-register {
+      font-size: 0.95rem;
+      letter-spacing: 0.15rem;
+      margin-top: 6px;
+    }
+
+    .register-card {
+      width: min(520px, 92vw);
+      min-height: unset;
+      padding: 1.8rem 1.2rem;
+      margin-top: 10px;
+    }
+  }
+
+  /* =========================
+    ✅ PHONE
+  ========================= */
+  @media (max-width: 600px) {
+    .logo-glow-register {
+      width: 130px;
+      height: 130px;
+    }
+
+    .title-register {
+      font-size: clamp(26px, 9vw, 42px);
+      letter-spacing: 4px;
+    }
+
+    .subtitle-register {
+      font-size: 14px;
+    }
+
+    .register-card {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  /* =========================
+    ✅ VERY SMALL
+  ========================= */
+  @media (max-width: 420px) {
+    .logo-glow-register {
+      width: 110px;
+      height: 110px;
+    }
+
+    .slogan-register {
+      font-size: 0.8rem;
+    }
+
+    .register-card {
+      width: 94vw;
+    }
+  }

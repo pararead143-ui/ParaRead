@@ -1,0 +1,377 @@
+/* ==============================
+   Container
+   ============================== */
+.materials-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+  background-color: #B3E6F5; /* light mode */
+
+  /* ✅ keep layout fixed; scroll happens in content */
+  overflow: hidden;
+}
+
+.materials-container.dark {
+  background-color: #002e3b; /* dark mode */
+  color: #e0f3f6;
+}
+
+/* ==============================
+   Content section (scrollable)
+   ============================== */
+.materials-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  padding: 40px 60px;
+  padding-left: 10px; /* adjust for sidebar width */
+
+  height: 100%;
+
+  /* ✅ KEY: content scrolls here */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  gap: 20px;
+  justify-content: flex-start;
+
+  /* ✅ prevents bottom from getting clipped */
+  padding-bottom: 60px;
+}
+
+/* Custom scrollbar for content */
+.materials-content::-webkit-scrollbar {
+  width: 8px;
+}
+.materials-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.materials-content::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+.materials-content::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,0.35);
+}
+
+/* ==============================
+   Page title
+   ============================== */
+.materials-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #003842;
+  transition: color 0.3s ease;
+}
+
+.materials-container.dark .materials-title {
+  color: #a6d8e7;
+}
+
+/* ==============================
+   Upload section
+   ============================== */
+.upload-section {
+  margin-bottom: 20px;
+}
+
+.upload-btn {
+  background-color: #006771;
+  color: #B3E6F5;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-btn:hover {
+  background-color: #0091af;
+  color: #e0f3f6;
+}
+
+.upload-btn input {
+  display: none;
+}
+
+/* ==============================
+   Materials list
+   ============================== */
+.materials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual material item */
+.material-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px 20px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+  /* ✅ prevent long titles from pushing buttons out */
+  min-width: 0;
+}
+
+.material-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.materials-container.dark .material-item {
+  background-color: rgba(0,74,89,0.4);
+  color: #a6d8e7;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+
+.materials-container.dark .material-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px 2px rgba(102,196,212,0.7), 0 8px 20px rgba(0,0,0,0.25);
+  background-color: rgba(0,74,89,0.55);
+}
+
+.material-title {
+  font-weight: 600;
+
+  /* ✅ handle long names nicely */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ==============================
+   Action buttons
+   ============================== */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+
+  /* ✅ allows wrap on small screens */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.action-buttons button {
+  background-color: #006771;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 700;
+  color: #B3E6F5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  /* ✅ consistent sizing */
+  white-space: nowrap;
+}
+
+.action-buttons button:hover {
+  background-color: #0091af;
+  color: #e0f3f6;
+  transform: translateY(-2px);
+}
+
+/* ==============================
+   Delete Confirmation Modal
+   ============================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-box {
+  background-color: #ffffff;
+  color: #003842;
+  padding: 25px 30px;
+  border-radius: 15px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.materials-container.dark .modal-box {
+  background-color: rgba(0, 74, 89, 0.9);
+  color: #a6d8e7;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-box h3 {
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.modal-box p {
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+
+  /* ✅ wrap on very small phones */
+  flex-wrap: wrap;
+}
+
+.btn-cancel,
+.btn-confirm {
+  padding: 8px 25px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-cancel {
+  background-color: #cccccc;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background-color: #b3b3b3;
+}
+
+.btn-confirm {
+  background-color: #e63946;
+  color: #fff;
+}
+
+.btn-confirm:hover {
+  background-color: #d62839;
+  transform: translateY(-2px);
+}
+
+/* ==============================
+   Toast notification
+   ============================== */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #006771;
+  color: #B3E6F5;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 1000;
+
+  /* ✅ prevent off-screen on phones */
+  max-width: calc(100vw - 40px);
+
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease 2s forwards;
+}
+
+.materials-container.dark .toast {
+  background-color: #0091af;
+  color: #e0f3f6;
+}
+
+/* ==============================
+   Animations
+   ============================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ==============================
+   Responsive
+   ============================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .materials-content {
+    padding: 28px 22px;
+    padding-left: 10px;
+    padding-bottom: 60px;
+  }
+
+  .materials-title {
+    font-size: 24px;
+  }
+}
+
+/* Phone */
+@media (max-width: 768px) {
+  .materials-content {
+    padding: 18px 14px;
+    padding-left: 10px;
+    padding-bottom: 70px;
+  }
+
+  .materials-title {
+    font-size: 22px;
+  }
+
+  /* ✅ stack row into column so buttons don’t get cut */
+  .material-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .action-buttons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .action-buttons button {
+    flex: 1;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .upload-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+
+  .modal-box h3 {
+    font-size: 18px;
+  }
+
+  .modal-box p {
+    font-size: 14px;
+  }
+}
