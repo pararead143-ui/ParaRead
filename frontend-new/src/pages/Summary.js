@@ -145,7 +145,7 @@ const SummaryPage = ({ darkMode, toggleDarkMode, setLoggedIn }) => {
       if (summarizeAbortRef.current) summarizeAbortRef.current.abort();
       summarizeAbortRef.current = new AbortController();
 
-      const res = await fetch("http://localhost:8000/api/materials/summarize/", {
+      const res = await fetch("https://pararead-backend.onrender.com/api/materials/summarize/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
