@@ -5,7 +5,7 @@ import re
 
 GROQ_QUIZ_KEY = os.getenv("GROQ_QUIZ_KEY")
 GROQ_API_BASE = os.getenv("GROQ_API_BASE", "https://api.groq.com/openai/v1")
-MODEL = os.getenv("MODEL")
+MODEL = os.getenv("QUIZ_MODEL", "llama-3.1-8b-instant")
 
 def generate_quiz_from_summary(summary_text, num_questions=5):
     """
