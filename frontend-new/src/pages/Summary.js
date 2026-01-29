@@ -21,6 +21,7 @@ const SummaryPage = ({ darkMode, toggleDarkMode, setLoggedIn }) => {
 
   const summarizeAbortRef = useRef(null);
   const quizAbortRef = useRef(null);
+  const token = localStorage.getItem("access");
 
   // ✅ WORD LIMIT CONSTANT
   const MAX_WORDS = 1000;
