@@ -133,14 +133,18 @@ const Home = ({ darkMode, toggleDarkMode, setLoggedIn }) => {
       uploadAbortRef.current = new AbortController();
 
       const res = await axios.post("materials/upload-file/", formData, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-        signal: uploadAbortRef.current.signal,
+      headers: {
+       Authorization: `Bearer ${token}`,
+        // ❌ do NOT set Content-Type manually
+      },
+      signal: uploadAbortRef.current.signal,
       });
 
-      const data = await res.json();
-      console.log("UPLOAD RESPONSE:", data);
+const data = res.data;
+console.log("UPLOAD RESPONSE:", data);
+
+
+      
 
       if (res.ok) {
         const extractedText = data.cleaned_text || "";
