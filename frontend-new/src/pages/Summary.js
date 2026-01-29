@@ -146,7 +146,10 @@ const SummaryPage = ({ darkMode, toggleDarkMode, setLoggedIn }) => {
         material_id: currentMaterialId,
       },
       {
-        signal: summarizeAbortRef.current.signal,
+        headers: {
+          Authorization: `Bearer ${token}`, // 🔥 
+        },
+        signal: summarizeAbortRef.current.signal, 
       }
     );
 
