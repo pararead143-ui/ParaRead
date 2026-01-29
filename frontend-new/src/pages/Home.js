@@ -172,12 +172,23 @@ if (wordCount > MAX_WORDS) {
 
       
     } catch (err) {
-      if (err?.name === "AbortError") return;
-      console.error(err);
-      showToastMessage("Network error while uploading");
-    } finally {
-      setIsProcessing(false);
-    }
+  // axios cancel
+  if (err?.code === "ERR_CANCELED" || err?.name === "CanceledError") return;
+
+  console.error("UPLOAD ERROR:", err.response?.data || err);
+
+  const msg =
+    err.response?.data?.error ||
+    err.response?.data?.detail ||
+    (typeof err.response?.data === "string" ? err.response.data : null) ||
+    JSON.stringify(err.response?.data) ||
+    "Upload failed";
+
+  showToastMessage(msg);
+} finally {
+  setIsProcessing(false);
+}
+
   };
 
   const openFilePicker = () => {
