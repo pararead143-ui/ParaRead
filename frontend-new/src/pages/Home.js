@@ -132,7 +132,7 @@ const Home = ({ darkMode, toggleDarkMode, setLoggedIn }) => {
       }
       uploadAbortRef.current = new AbortController();
 
-      const res = await fetch("http://localhost:8000/api/materials/upload-file/", {
+      const res = await axios.post("materials/upload-file/", formData, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
