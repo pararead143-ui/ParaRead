@@ -4,7 +4,7 @@ import json
 import re
 
 GROQ_QUIZ_KEY = os.getenv("GROQ_QUIZ_KEY")
-GROQ_API_BASE = os.getenv("GROQ_API_BASE")
+GROQ_API_BASE = os.getenv("GROQ_API_BASE", "https://api.groq.com/openai/v1")
 MODEL = os.getenv("MODEL")
 
 def generate_quiz_from_summary(summary_text, num_questions=5):
