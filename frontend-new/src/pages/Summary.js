@@ -131,51 +131,49 @@ const SummaryPage = ({ darkMode, toggleDarkMode, setLoggedIn }) => {
   if (loading) return <p>Loading material...</p>;
 
   const handleSummarize = async () => {
-    if (!originalText.trim()) return;
+  if (!originalText.trim()) return;
 
-    const token = localStorage.getItem("access");
-    if (!token) {
-      alert("You must be logged in to summarize!");
-      return;
-    }
+  setIsSummarizing(true);
 
-    setIsSummarizing(true);
+  try {
+    if (summarizeAbortRef.current) summarizeAbortRef.current.abort();
+    summarizeAbortRef.current = new AbortController();
 
-    try {
-      if (summarizeAbortRef.current) summarizeAbortRef.current.abort();
-      summarizeAbortRef.current = new AbortController();
-
-      const res = await fetch("https://pararead-backend.onrender.com/api/materials/summarize/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ text: originalText, material_id: currentMaterialId }),
+    const res = await axios.post(
+      "materials/summarize/",
+      {
+        text: originalText,
+        material_id: currentMaterialId,
+      },
+      {
         signal: summarizeAbortRef.current.signal,
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.summary) {
-        let formattedSummary = data.summary.replace(/\\n/g, "\n").replace(/- /g, "\n- ");
-        setSummaryText(formattedSummary);
-
-        if (!currentMaterialId && data.id) {
-          setCurrentMaterialId(data.id);
-        }
-      } else {
-        alert(data.error || "Failed to summarize.");
       }
-    } catch (err) {
-      if (err?.name === "AbortError") return;
+    );
 
-      console.error(err);
-      alert("Network error while summarizing.");
-    } finally {
-      setIsSummarizing(false);
+    const data = res.data;
+
+    if (data.summary) {
+      let formattedSummary = data.summary
+        .replace(/\\n/g, "\n")
+        .replace(/- /g, "\n- ");
+      setSummaryText(formattedSummary);
+
+      if (!currentMaterialId && data.id) {
+        setCurrentMaterialId(data.id);
+      }
+    } else {
+      alert("Failed to summarize.");
     }
-  };
+  } catch (err) {
+    if (err?.name === "AbortError" || err?.code === "ERR_CANCELED") return;
+
+    console.error(err);
+    alert("Network error while summarizing.");
+  } finally {
+    setIsSummarizing(false);
+  }
+};
+
 
   const handleClear = () => {
     setOriginalText("");
