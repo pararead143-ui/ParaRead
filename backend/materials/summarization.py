@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GROQ_SUMMARIZATION_KEY = os.getenv("GROQ_SUMMARIZATION_KEY")
-GROQ_API_BASE = os.getenv("GROQ_API_BASE", "https://api/groq.com/openai/v1")
+GROQ_API_BASE = os.getenv("GROQ_API_BASE", "https://api.groq.com/openai/v1")
 MODEL = os.getenv("SUMMARIZATION_MODEL", "llama-3.1-8b-instant")  # optional: separate model
 
 
