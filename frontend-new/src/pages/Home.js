@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import axios from "../api/anxios";
 import Sidebar from "./Sidebar";
 import {
   Folder,
@@ -146,33 +147,30 @@ console.log("UPLOAD RESPONSE:", data);
 
       
 
-      if (res.ok) {
-        const extractedText = data.cleaned_text || "";
-        const wordCount = extractedText.split(/\s+/).filter(Boolean).length;
+      const extractedText = data.cleaned_text || "";
+const wordCount = extractedText.split(/\s+/).filter(Boolean).length;
 
-        // ✅ CHECK WORD LIMIT
-        if (wordCount > MAX_WORDS) {
-          const truncated = truncateToWordLimit(extractedText, MAX_WORDS);
+if (wordCount > MAX_WORDS) {
+  const truncated = truncateToWordLimit(extractedText, MAX_WORDS);
 
-          Swal.fire({
-            icon: "warning",
-            title: "Word Limit Reached",
-            html: `The extracted text contains <b>${wordCount.toLocaleString()} words</b>.<br>
-                   Maximum allowed: <b>${MAX_WORDS.toLocaleString()} words</b>.<br><br>
-                   Text has been automatically truncated.`,
-            confirmButtonColor: "#0b616e",
-          });
+  Swal.fire({
+    icon: "warning",
+    title: "Word Limit Reached",
+    html: `The extracted text contains <b>${wordCount.toLocaleString()} words</b>.<br>
+           Maximum allowed: <b>${MAX_WORDS.toLocaleString()} words</b>.<br><br>
+           Text has been automatically truncated.`,
+    confirmButtonColor: "#0b616e",
+    });
 
-          setTextInput(truncated);
-        } else {
-          setTextInput(extractedText);
-        }
+  setTextInput(truncated);
+    } else {
+    setTextInput(extractedText);
+    }
 
-        setCurrentMaterialId(null);
-        showToastMessage("File uploaded and extracted successfully!");
-      } else {
-        showToastMessage(data.error || "Upload failed");
-      }
+    setCurrentMaterialId(null);
+    showToastMessage("File uploaded and extracted successfully!");
+
+      
     } catch (err) {
       if (err?.name === "AbortError") return;
       console.error(err);
