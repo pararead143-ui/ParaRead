@@ -119,7 +119,7 @@ const Home = ({ darkMode, toggleDarkMode, setLoggedIn }) => {
     setIsProcessing(true);
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("document", file);
 
     try {
       const token = localStorage.getItem("access");
