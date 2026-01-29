@@ -8,6 +8,9 @@ class User(AbstractUser):
     )
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='student')
 
+    
+    email = models.EmailField(unique=True)
+
     # Extra fields for settings
     notifications = models.BooleanField(default=True)
     font_size = models.CharField(max_length=10, default="medium")

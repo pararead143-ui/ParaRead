@@ -9,7 +9,6 @@ from django.contrib.auth import authenticate
 
 
 class RegisterView(APIView):
-    # Make this endpoint public
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -17,24 +16,39 @@ class RegisterView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             return Response(
-                {"message": "User created successfully"}, 
+                {"message": "User created successfully"},
                 status=status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(APIView):
-    # Make this endpoint public
     permission_classes = [AllowAny]
 
     def post(self, request):
-        username = request.data.get("username")
+        identifier = request.data.get("username")  # can be email OR username
         password = request.data.get("password")
 
-        # Authenticate user
+        if not identifier or not password:
+            return Response(
+                {"error": "Missing credentials"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # ✅ If email, find the corresponding username
+        if "@" in identifier:
+            try:
+                user_obj = User.objects.get(email__iexact=identifier)
+                username = user_obj.username
+            except User.DoesNotExist:
+                return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            username = identifier
+
+        # Authenticate user (still uses Django auth properly)
         user = authenticate(username=username, password=password)
         if not user:
-            return Response({"error": "Invalid credentials"}, status=400)
+            return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Generate JWT tokens
         refresh = RefreshToken.for_user(user)

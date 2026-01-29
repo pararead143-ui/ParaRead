@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(
             username=validated_data["username"],
-            email=validated_data.get("email", ""),  # default to empty string if not provided
+            email=validated_data["email"],  # default to empty string if not provided
             password=validated_data["password"],
             role=validated_data.get("role", "student")
         )

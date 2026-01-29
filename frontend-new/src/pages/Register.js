@@ -62,37 +62,55 @@ const Signup = () => {
 
       navigate("/login");
     } catch (err) {
-      console.error(err);
+  console.error(err);
 
-      let errorMessage = "Signup failed! Try again.";
-      const newErrors = {};
+  let errorMessage = "Signup failed! Try again.";
+  const newErrors = {};
 
-      if (err.response?.data) {
-        if (err.response.data.username) {
-          errorMessage = `Username "${username}" is already taken!`;
-          newErrors.username = errorMessage;
-        } else if (err.response.data.email) {
-          errorMessage = `Email "${email}" is already used!`;
-          newErrors.email = errorMessage;
-        } else if (err.response.data.password) {
-          errorMessage = "Password issue: " + err.response.data.password.join(" ");
-          newErrors.password = errorMessage;
-        }
-      }
+  const data = err.response?.data;
 
-      // ✅ show inline + form highlight too
-      if (Object.keys(newErrors).length) {
-        setErrors(newErrors);
-        setFormError(true);
-      }
+  // ✅ Handle DRF field errors (most common)
+  if (data?.email) {
+    // could be ["user with this email already exists."] or a string
+    const msg = Array.isArray(data.email) ? data.email.join(" ") : String(data.email);
+    newErrors.email = msg;
+    errorMessage = msg;
+  }
 
-      Swal.fire({
-        icon: "error",
-        title: "Signup Failed",
-        text: errorMessage,
-        confirmButtonColor: "#7b2cbf",
-      });
-    }
+  if (data?.username) {
+    const msg = Array.isArray(data.username) ? data.username.join(" ") : String(data.username);
+    newErrors.username = msg;
+    errorMessage = msg;
+  }
+
+  if (data?.password) {
+    const msg = Array.isArray(data.password) ? data.password.join(" ") : String(data.password);
+    newErrors.password = msg;
+    errorMessage = msg;
+  }
+
+  // ✅ Handle Django/DB uniqueness error format (sometimes shows as "non_field_errors")
+  if (data?.non_field_errors) {
+    const msg = Array.isArray(data.non_field_errors)
+      ? data.non_field_errors.join(" ")
+      : String(data.non_field_errors);
+    errorMessage = msg;
+  }
+
+  // ✅ Inline errors + highlight
+  if (Object.keys(newErrors).length) {
+    setErrors(newErrors);
+    setFormError(true);
+  }
+
+  Swal.fire({
+    icon: "error",
+    title: "Signup Failed",
+    text: errorMessage,
+    confirmButtonColor: "#7b2cbf",
+  });
+}
+
   };
 
   return (
